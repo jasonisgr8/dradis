@@ -1,0 +1,8 @@
+version: '1'
+
+services:
+
+  dradis:
+    image: jasonisgr8/dradis
+    ports:
+      - "3000:3000"
