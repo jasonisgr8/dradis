@@ -30,5 +30,5 @@ RUN ruby bin/setup
 CMD ["bundle","exec","rails","server","-b","0.0.0.0"]
 
 #Clear dradis database
-thor dradis:reset:database
+RUN thor dradis:reset:database
 
