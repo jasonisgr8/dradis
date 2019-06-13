@@ -1,0 +1,352 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <title>Report - Dradis Professional Edition</title>
+  <style type="text/css">
+  /*! normalize.css v2.1.0 | MIT License | git.io/normalize */
+  article,aside,details,figcaption,figure,footer,header,hgroup,main,nav,section,summary {display: block;}
+  [hidden] {display: none;}
+  html {font-family: sans-serif; /* 1 */-webkit-text-size-adjust: 100%; /* 2 */-ms-text-size-adjust: 100%; /* 2 */}
+  body {margin: 0;}
+  a:focus {outline: thin dotted;}
+  a:active,a:hover {outline: 0;}
+  h1 {font-size: 2em;margin: 0.67em 0; text-align: center;}
+  abbr[title] {border-bottom: 1px dotted;}
+  b,strong {font-weight: bold;}
+  dfn {font-style: italic;}
+  hr {-moz-box-sizing: content-box;box-sizing: content-box;height: 0;}
+  mark {background: #ff0;color: #000;}
+  code,kbd,pre,samp {font-family: monospace, serif;font-size: 1em;}
+  pre {white-space: pre-wrap;}
+  q {quotes: "\201C" "\201D" "\2018" "\2019";}
+  small {font-size: 80%;}
+  sub,sup {font-size: 75%;line-height: 0;position: relative;vertical-align: baseline;}
+  sup {top: -0.5em;}
+  sub {bottom: -0.25em;}
+  img {border: 0;}
+  svg:not(:root) {overflow: hidden;}
+  figure {margin: 0;}
+  fieldset {border: 1px solid #c0c0c0;margin: 0 2px;padding: 0.35em 0.625em 0.75em;}
+  legend {border: 0; /* 1 */padding: 0; /* 2 */}
+  button,input,select,textarea {font-family: inherit; /* 1 */font-size: 100%; /* 2 */margin: 0; /* 3 */}
+  button,input {line-height: normal;}
+  button,select {text-transform: none;}
+  button,html input[type="button"], /* 1 */input[type="reset"],input[type="submit"] {-webkit-appearance: button; /* 2 */cursor: pointer; /* 3 */}
+  button[disabled],html input[disabled] {cursor: default;}
+  input[type="checkbox"],input[type="radio"] {box-sizing: border-box; /* 1 */padding: 0; /* 2 */}
+  input[type="search"] {-webkit-appearance: textfield; /* 1 */-moz-box-sizing: content-box;-webkit-box-sizing: content-box; /* 2 */box-sizing: content-box;}
+  input[type="search"]::-webkit-search-cancel-button,input[type="search"]::-webkit-search-decoration {-webkit-appearance: none;}
+  button::-moz-focus-inner,input::-moz-focus-inner {border: 0;padding: 0;}
+  textarea {overflow: auto; /* 1 */vertical-align: top; /* 2 */}
+  
+  
+
+  /* custom report styles */
+  body {
+    background: url('/assets/grid.png');
+    margin-top: 70px;; 
+  }
+  header {
+    background-color: #efefef;
+    box-shadow: 2px 0px 5px rgba(0,0,0,0.2);
+    left: 0;
+    position: absolute;
+    top: 0;
+    width: 100%;
+  }
+  header .title {
+    background: url('/assets/logopro_tiny_t.png') 0 0 no-repeat;
+    color:#333;
+    float: left;
+    font-family: 'Helvetica neue', Helvetica, sans-serif;
+    font-size: 20px;
+    height: 48px;
+    line-height: 48px;
+    margin-left: 20px;
+    padding-left: 50px;
+    position: relative;
+    text-decoration: none;
+    text-shadow: 1px 1px #fff;
+  }
+  .container {
+    margin: 0 auto;
+    max-width: 960px;
+    max-width: 68.571428571rem;
+    overflow: hidden;
+  }
+  .content .container {
+    background-color: #fff;
+    border-radius: 12px;
+  }
+  .report {
+    padding: 15px;
+  }
+  .field {
+    margin: 10px 0;
+  }
+  .field .field-name {
+    float: left;
+    font-weight: bold;
+    text-align: right;
+    width: 12.5%;
+  }
+  .field .field-content {
+    padding-left: 13.5%;
+  }
+
+  .rating-critical { color: purple; }
+  .rating-high { color: red; }
+  .rating-medium { color: orange; }
+  .rating-low { color: blue; }
+
+  footer .container {
+    color: #6f6f6f;
+    margin-top: 20px;
+    text-align: center;
+    text-shadow: 0 2px 0 #fff;
+  }
+  table {
+    border-collapse: collapse;
+    width: 75%;
+  }
+  table, th, td {
+    border: 1px solid black;
+    padding: 0px 15px 0px 15px;
+  }
+  thead {
+    text-align: center;
+  }
+  </style>
+</head>
+
+
+<body>
+  <header>
+    <div class="container">
+      <span class="title"><strong>Dradis</strong> Professional Edition</span>
+    </div>
+  </header>
+  <div class="content">
+    <div class="container">
+      <div class="report">
+        <h1>PTES Technical Report by Kobol Consulting</h1>
+
+        <h2>Table of contents</h2>
+        <ol>
+          <li><a href="#intro">Introduction</a></li><br/>
+          <li>
+            <a href="#intel-gathering">Intelligence Gathering</a>
+            <ul>
+              <li><a href="#passive-intel">Passive Intelligence</a></li>
+              <li><a href="#active-intel">Active Intelligence</a></li>
+              <li><a href="#corporate-intel">Corporate Intelligence</a></li>
+              <li><a href="#personnel-intel">Personnel Intelligence</a></li>
+            </ul>
+          </li><br/>
+          <li>
+            <a href="#vuln-assess">Vulnerability Assessment</a>
+            <ul>
+            <% for issue in issues do %>
+              <li><a href="#note-a_<%= issue.id %>"><%= h issue.fields['Title'] %></a></li>
+            <% end %>
+            </ul>
+          </li><br/>
+          <li>
+            <a href="#exploit-vuln">Exploitation/Vulnerability Confirmation</a>
+            <ul>
+            <% for issue in issues do %>
+              <li><a href="#note-b_<%= issue.id %>"><%= h issue.fields['Title'] %></a></li>
+            <% end %>
+            </ul>
+          </li><br/>
+          <li>
+            <a href="#post-exploit">Post Exploitation</a>
+            <ul>
+            <% for issue in issues do %>
+              <li><a href="#note-c_<%= issue.id %>"><%= h issue.fields['Title'] %></a></li>
+            <% end %>
+            </ul>
+          </li><br/>
+          <li>
+            <a href="#risk-exposure">Risk/Exposure</a>
+            <ul>
+            <% for issue in issues do %>
+              <li><a href="#note-d_<%= issue.id %>"><%= h issue.fields['Title'] %></a></li>
+            <% end %>
+            </ul>
+          </li><br/>
+        </ol>
+        
+        <h1 id=intro>Introduction</h1>
+        <% for note in notes;
+          note_type = note.fields['Type'];
+          case note_type
+            when "TechnicalIntro"
+              %><%= markup(note.fields['Description']) %><%
+          end
+        end %>
+        <br/><br/>
+        <h1 id="intel-gathering">Intelligence Gathering</h1>
+        <h2 id="passive-intel">Passive Intelligence</h2>
+        <% for note in notes;
+          note_type = note.fields['Type'];
+          case note_type
+            when "PassiveIntelligence"
+              %><%= markup(note.fields['Description']) %><%
+          end
+        end %>
+        <h2 id="active-intel">Active Intelligence</h2>
+        <% for note in notes;
+          note_type = note.fields['Type'];
+          case note_type
+            when "ActiveIntelligence"
+              %><%= markup(note.fields['Description']) %><%
+          end
+        end %>
+        <h2 id="corporate-intel">Corporate Intelligence</h2>
+        <% for note in notes;
+          note_type = note.fields['Type'];
+          case note_type
+            when "CorporateIntelligence"
+              %><%= markup(note.fields['Description']) %><%
+          end
+        end %>
+        <h2 id="personnel-intel">Personnel Intelligence</h2>
+        <% for note in notes;
+          note_type = note.fields['Type'];
+          case note_type
+            when "PersonnelIntelligence"
+              %><%= markup(note.fields['Description']) %><%
+          end
+        end %>
+        <br/><br/>
+        <h1 id="vuln-assess">Vulnerability Assessment</h1>
+        <% for note in notes;
+          note_type = note.fields['Type'];
+          case note_type
+            when "VulnSummary"
+              %><%= markup(note.fields['Description']) %><%
+          end
+        end %>
+        <br/><br/>
+
+        <% for issue in issues do %>
+          <% rating = issue.fields['Rating'].to_s.downcase %>
+          <div id="note-a_<%= issue.id %>" class="note-content">
+            <h2><%= h issue.fields['Title'] %></h2>
+            <p><strong>Rating: </strong><strong class="rating-<%= rating %>"><%= h issue.fields['Rating'] %></strong></p>
+            <strong>Description:</strong>
+            <p><%= markup(issue.fields['Description']) %></p>
+            <% if issue.affected.empty? %>
+              <p class="well">No evidence.</p>
+            <% else %>
+              <% issue.evidence_by_node.each do |node, instances| %>
+                <% if instances.count == 1 %>
+                  <div class="content-textile" id="node_<%= node.id %>_instance_0">
+                    <strong>Evidence for <%= node.label %></strong>
+                    <%= markup(instances.first.fields['Description']) %>
+                  </div>
+                <% else %>
+                  <div class="tab-content">
+                    <% instances.each_with_index do |evidence, i| %>
+                    <div class="content-textile tab-pane<%= ' active' if i==0 %>" id="node_<%= node.id %>_instance_<%= i %>">
+                      <strong>Evidence for <%= node.label %></strong>
+                        <%= markup(evidence.fields['Description']) %>
+                    </div>
+                    <% end %>
+                  </div>
+                <% end %>
+              <% end %>
+            <% end %>
+          </div>
+          <br/><hr/>
+        <% end %>
+
+        <br/><br/>
+        <h1 id="exploit-vuln">Exploitation/Vulnerability Confirmation</h1>
+        <% for issue in issues do %>
+          <% rating = issue.fields['Rating'].to_s.downcase %>
+          <div id="note-b_<%= issue.id %>" class="note-content">
+            <h2><%= h issue.fields['Title'] %></h2>
+            <p><strong>Rating: </strong><strong class="rating-<%= rating %>"><%= h issue.fields['Rating'] %></strong></p>
+            <strong>Exploitation Details:</strong>
+            <p><%= markup(issue.fields['Timeline']) %></p>
+            <strong>Targets:</strong>
+            <p><%= markup(issue.fields['Targets']) %></p>
+            <h3>Attack Details</h3>
+            <% if issue.affected.empty? %>
+              <p><strong>Hosts Affected:</strong> None</p>
+            <% else %>
+              <strong>Hosts Affected:</strong>
+              <% issue.evidence_by_node.each do |node, instances| %>
+                <% if instances.count == 1 %>
+                  <p><%= node.label %></p>
+                <% else %>
+                  <% instances.each_with_index do |evidence, i| %>
+                    <p><%= node.label %></p>
+                  <% end %>
+                <% end %>
+              <% end %>
+            <% end %>
+            <strong>Attacks:</strong>
+            <p><%= markup(issue.fields['Attacks']) %></p>
+            <strong>Success/Fail Ratio:</strong>
+            <p><%= markup(issue.fields['SuccessFailRatio']) %></p>
+            <strong>Level of access granted:</strong>
+            <p><%= markup(issue.fields['AccessLevel']) %></p>
+            <strong>Remediation:</strong>
+            <p><%= markup(issue.fields['Remediation']) %></p>
+          </div>
+          <br/><hr/>
+        <% end %>
+
+        <br/><br/>
+        <h1 id="post-exploit">Post Exploitation</h1>
+        <% for issue in issues do %>
+          <% rating = issue.fields['Rating'].to_s.downcase %>
+          <div id="note-c_<%= issue.id %>" class="note-content">
+            <h2><%= h issue.fields['Title'] %></h2>
+            <p><strong>Rating: </strong><strong class="rating-<%= rating %>"><%= h issue.fields['Rating'] %></strong></p>
+            <p><strong>Business Risk:</strong></p>
+            <p><%= markup(issue.fields['BusinessRisk']) %></p>
+            <strong>Countermeasures:</strong>
+            <p><%= markup(issue.fields['Countermeasures']) %></p>
+          </div>
+          <br/><hr/>
+        <% end %>
+
+        <br/><br/>
+        <h1 id="risk-exposure">Risk/Exposure</h1>
+        <% for issue in issues do %>
+          <% rating = issue.fields['Rating'].to_s.downcase %>
+          <div id="note-d_<%= issue.id %>" class="note-content">
+            <h2><%= h issue.fields['Title'] %></h2>
+            <p><strong>Rating: </strong><strong class="rating-<%= rating %>"><%= h issue.fields['Rating'] %></strong></p>
+            <p><strong>Likelihood:</strong> <%= h issue.fields['Likelihood'] %></p>
+            <p><%= markup(issue.fields['LikelihoodDiscussion']) %></p>
+            <p><strong>Impact:</strong> <%= h issue.fields['Impact'] %></p>
+            <p><%= markup(issue.fields['ImpactDiscussion']) %></p>
+            <p><strong>Risk:</strong> <%= h issue.fields['Risk'] %></p>
+            <p><%= markup(issue.fields['RiskDiscussion']) %></p>
+          </div>
+          <br/><hr/>
+        <% end %>
+      </div>
+      <br/><br/><br/>
+    </div>
+  </div>
+  <footer>
+    <div class="container">the best collaboration solution for security teams<br/><%= title %></div>
+  </footer>
+</body>
+<script type="text/javascript">
+$(function(){
+  // auto-link URLs
+  var link_regexp = /(\b(https?|ftp):\/\/[-A-Z0-9+&@#\/%?=~_|!:,.;]*[-A-Z0-9+&@#\/%=~_|])/ig;
+  $('.field-content.references').each(function(){
+    $(this).html( $(this).html().replace(link_regexp,"<a href='$1'>$1</a>") );
+  });
+})
+</script>
+</html>
