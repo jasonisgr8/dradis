@@ -17,10 +17,6 @@ RUN git clone --depth=1 https://github.com/dradis/dradis-ce.git
 
 WORKDIR /dradis-ce
 
-#Copy templates to image
-COPY methodologies/* /dradis-ce/templates/methodologies/
-COPY reports/html_export/* /dradis-ce/templates/reports/html_export/
-
 #Can't set production without SSL
 #ENV RAILS_ENV=production
 
@@ -36,3 +32,6 @@ CMD ["bundle","exec","rails","server","-b","0.0.0.0"]
 #Clear dradis database
 RUN thor dradis:reset:database
 
+#Copy templates to image
+COPY methodologies/* /dradis-ce/templates/methodologies/
+COPY reports/html_export/* /dradis-ce/templates/reports/html_export/
