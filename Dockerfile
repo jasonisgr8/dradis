@@ -28,12 +28,12 @@ COPY stunnel/stunnel4 /etc/default/
 COPY stunnel/dradis.conf /etc/stunnel/
 COPY stunnel/genssl.sh /bin/
 RUN /bin/genssl.sh
-RUN update-rc.d stunnel4 defaults
-RUN update-rc.d stunnel4 enable
+#RUN update-rc.d stunnel4 defaults
+#RUN update-rc.d stunnel4 enable
 #CMD ["/etc/init.d/stunnel4","start"]
 
 #Bind to all interfaces explicitly as the default is localhost only
-CMD ["bundle","exec","rails","server","-b","0.0.0.0"]
+#CMD ["bundle","exec","rails","server","-b","0.0.0.0"]
 
 #Clear dradis database
 RUN thor dradis:reset:database
@@ -41,3 +41,8 @@ RUN thor dradis:reset:database
 #Copy templates to image
 COPY methodologies/* /dradis-ce/templates/methodologies/
 COPY reports/html_export/* /dradis-ce/templates/reports/html_export/
+
+#Start it up
+COPY startup.sh ./
+CMD ["./startup.sh"]
+
