@@ -37,7 +37,7 @@ COPY reports/html_export/* /dradis-ce/templates/reports/html_export/
 COPY stunnel/stunnel4 /etc/default/
 COPY stunnel/dradis.conf /etc/stunnel/
 COPY stunnel/genssl.sh /bin/
-CMD ["/bin/genssl.sh"]
+RUN /bin/genssl.sh
 RUN /etc/init.d/stunnel4 start
 
 
