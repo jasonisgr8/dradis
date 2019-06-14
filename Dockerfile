@@ -28,6 +28,8 @@ COPY stunnel/stunnel4 /etc/default/
 COPY stunnel/dradis.conf /etc/stunnel/
 COPY stunnel/genssl.sh /bin/
 RUN /bin/genssl.sh
+RUN update-rc.d stunnel4 defaults
+RUN update-rc.d stunnel4 enable
 #CMD ["/etc/init.d/stunnel4","start"]
 
 #Bind to all interfaces explicitly as the default is localhost only
