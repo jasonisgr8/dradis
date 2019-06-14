@@ -28,7 +28,7 @@ COPY stunnel/stunnel4 /etc/default/
 COPY stunnel/dradis.conf /etc/stunnel/
 COPY stunnel/genssl.sh /bin/
 RUN /bin/genssl.sh
-CMD ["/etc/init.d/stunnel4","start"]
+#CMD ["/etc/init.d/stunnel4","start"]
 
 #Bind to all interfaces explicitly as the default is localhost only
 CMD ["bundle","exec","rails","server","-b","0.0.0.0"]
