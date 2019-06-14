@@ -38,6 +38,6 @@ COPY stunnel/stunnel4 /etc/default/
 COPY stunnel/dradis.conf /etc/stunnel/
 COPY stunnel/genssl.sh /bin/
 RUN /bin/genssl.sh
-RUN /etc/init.d/stunnel4 start
+CMD ["/etc/init.d/stunnel4","start"]
 
 
