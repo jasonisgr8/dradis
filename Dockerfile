@@ -9,16 +9,13 @@ ENV DEBIAN_FRONTEND=noninteractive
 
 #Pre-requisites
 RUN apt update -qq && \
-    apt install -y ruby nodejs git gcc ruby-dev make libmysqlclient-dev libsqlite3-dev g++ tzdata && \
+    apt install -y ruby stunnel4 nodejs git gcc ruby-dev make libmysqlclient-dev libsqlite3-dev g++ tzdata && \
     rm -rf /var/lib/apt/lists/* && rm -rf /var/cache/apt/* 
 
 #Clone the repo
 RUN git clone --depth=1 https://github.com/dradis/dradis-ce.git
 
 WORKDIR /dradis-ce
-
-#Can't set production without SSL
-#ENV RAILS_ENV=production
 
 #Complains without the rake gem setup
 RUN gem install rake
@@ -35,3 +32,12 @@ RUN thor dradis:reset:database
 #Copy templates to image
 COPY methodologies/* /dradis-ce/templates/methodologies/
 COPY reports/html_export/* /dradis-ce/templates/reports/html_export/
+
+#Setup SSL
+COPY stunnel/stunnel4 /etc/default/
+COPY stunnel/dradis.conf /etc/stunnel/
+COPY stunnel/genssl.sh /bin/
+CMD ["/bin/genssl.sh"]
+RUN /etc/init.d/stunnel4 start
+
+
