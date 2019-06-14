@@ -20,8 +20,8 @@ WORKDIR /dradis-ce
 #Complains without the rake gem setup
 RUN gem install rake
 RUN gem install bundler -v '1.17.3'
-
-RUN ruby bin/setup
+RUN sleep 2
+RUN ruby /dradis-ce/bin/setup
 
 #Bind to all interfaces explicitly as the default is localhost only
 CMD ["bundle","exec","rails","server","-b","0.0.0.0"]
